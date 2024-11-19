@@ -147,7 +147,7 @@
     <div class="container">
         <div class="main-content">
             <h2>Formulaire de Réservation</h2>
-            <form onsubmit="showConfirmationMessage(event)">
+            <form method="POST" action="/api/reservation" onsubmit="return validateDates()">
                 <div class="form-group">
                     <label for="name">Nom:</label>
                     <input type="text" id="name" name="name" required>
@@ -165,8 +165,8 @@
                     <input type="date" id="checkout" name="checkout" required>
                 </div>
                 <div class="form-group">
-                    <label for="room">Nombre d'adultes</label>
-                    <select id="room" name="room" required>
+                    <label for="adults">Nombre d'adultes:</label>
+                    <select id="adults" name="adults" required>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -176,8 +176,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="room">Nombre d'enfants</label>
-                    <select id="room" name="room" required>
+                    <label for="children">Nombre d'enfants:</label>
+                    <select id="children" name="children" required>
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -187,24 +187,25 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="room">Parking</label>
-                    <select id="room" name="room" required>
-                        <option value="0">oui</option>
-                        <option value="1">non</option>
+                    <label for="parking">Parking:</label>
+                    <select id="parking" name="parking" required>
+                        <option value="oui">Oui</option>
+                        <option value="non">Non</option>
                     </select>
                 </div>
-
                 <div class="form-group">
-                    <label for="room">Type de chambre:</label>
-                    <select id="room" name="room" required>
-                        <option value="single">Simple</option>
-                        <option value="double">Double</option>
-                        <option value="suite">Suite</option>
-                        <option value="single">Familiale</option>
-                        <option value="double">Suite de Luxe</option>
-                        <option value="suite">Penthouse</option>
+                    <label for="roomType">Type de chambre:</label>
+                    <select id="roomType" name="roomType" onchange="updateRoomId()" required>
+                        <option value="1">Simple</option>
+                        <option value="2">Double</option>
+                        <option value="3">Suite</option>
+                        <option value="4">Familiale</option>
+                        <option value="5">Suite de Luxe</option>
+                        <option value="6">Penthouse</option>
                     </select>
                 </div>
+                <!-- Champ caché pour stocker l'ID de la chambre -->
+                <input type="hidden" id="room_id" name="room_id" value="1">
                 <button type="submit" class="btn">Réserver</button>
             </form>
         </div>
@@ -212,5 +213,13 @@
     <footer>
         <p>&copy; 2023 Oasis Hotel. Tous droits réservés.</p>
     </footer>
+    <script>
+        function updateRoomId() {
+            const roomTypeSelect = document.getElementById('roomType');
+            const roomIdInput = document.getElementById('room_id');
+            roomIdInput.value = roomTypeSelect.value;
+        }
+    </script>
+    
 </body>
 </html>
