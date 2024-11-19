@@ -34,7 +34,7 @@ app.get('/reservation', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'Réservation.html'));
 });
 
-app.get('/reservations', (req, res) => {
+app.get('/api/testreservations', (req, res) => {
   const query = 'SELECT * FROM booking'; // Remplacez par le nom de votre table
   db.query(query, (err, results) => {
     if (err) {
