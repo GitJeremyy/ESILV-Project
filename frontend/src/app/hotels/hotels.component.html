@@ -1,1 +1,52 @@
-<p>hotels works!</p>
+<!-- hotels.component.html -->
+<h2>Hotels</h2>
+
+<!-- Add a loading message if data is still being fetched -->
+<div *ngIf="hotels.length === 0">Loading hotels...</div>
+
+<!-- Table to display hotel information -->
+<table border="1" style="width: 100%; border-collapse: collapse;">
+  <thead>
+  <tr>
+    <th>Hotel ID</th>
+    <th>Name</th>
+    <th>Location</th>
+    <th>Total Bookings</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let hotel of hotels">
+    <td>{{ hotel.hotel_id }}</td>
+    <td>{{ hotel.nameH }}</td>
+    <td>{{ hotel.location }}</td>
+    <td>{{ hotel.total_bookings }}</td>
+  </tr>
+  </tbody>
+</table>
+
+<!-- Optionally, add some basic styles to improve the appearance -->
+<style>
+  table {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #f4f4f4;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+</style>
