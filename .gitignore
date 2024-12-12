@@ -1,0 +1,28 @@
+# Root
+node_modules/
+npm-debug.log
+package-lock.json
+
+# Frontend
+frontend/node_modules/
+
+# Backend
+backend/node_modules/
+
+# Logs
+logs/
+*.log
+
+# OS-specific files
+.DS_Store  # Mac OS
+Thumbs.db  # Windows
+
+# Environment variables
+.env
+
+# Build directories
+dist/
+build/
+
+# Miscellaneous
+*.env
