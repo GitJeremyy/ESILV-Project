@@ -1,0 +1,25 @@
+<h2>Guests Information</h2>
+<table border="1" style="width: 100%; border-collapse: collapse; text-align: left;">
+  <thead style="background-color: #f2f2f2;">
+  <tr>
+    <th>Guest ID</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Repeated Guest</th>
+    <th>Previous Cancellations</th>
+    <th>Previous Bookings Not Canceled</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let guest of guests">
+    <td>{{ guest.guest_id }}</td>
+    <td>{{ guest.g_name }}</td>
+    <td>{{ guest.g_email }}</td>
+    <td>{{ guest.g_phone }}</td>
+    <td>{{ guest.repeated_guest === 'Y' ? 'Yes' : 'No' }}</td>
+    <td>{{ guest.previous_cancellations }}</td>
+    <td>{{ guest.previous_bookings_not_canceled }}</td>
+  </tr>
+  </tbody>
+</table>

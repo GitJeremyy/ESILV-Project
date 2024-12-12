@@ -1,10 +1,4 @@
-<!-- hotels.component.html -->
-<h2>Hotels</h2>
-
-<!-- Add a loading message if data is still being fetched -->
-<div *ngIf="hotels.length === 0">Loading hotels...</div>
-
-<!-- Table to display hotel information -->
+<h2>Hotels Information</h2>
 <table border="1" style="width: 100%; border-collapse: collapse;">
   <thead>
   <tr>
@@ -23,30 +17,3 @@
   </tr>
   </tbody>
 </table>
-
-<!-- Optionally, add some basic styles to improve the appearance -->
-<style>
-  table {
-    margin-top: 20px;
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  th, td {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #ddd;
-  }
-
-  th {
-    background-color: #f4f4f4;
-  }
-
-  tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-
-  tr:hover {
-    background-color: #f1f1f1;
-  }
-</style>

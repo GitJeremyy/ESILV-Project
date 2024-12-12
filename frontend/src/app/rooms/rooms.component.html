@@ -1,0 +1,19 @@
+<h2>Rooms Information</h2>
+<table border="1" style="width: 100%; border-collapse: collapse; text-align: left;">
+  <thead style="background-color: #f2f2f2;">
+  <tr>
+    <th>Room ID</th>
+    <th>Hotel ID</th>
+    <th>Room Type</th>
+    <th>Price</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let room of rooms">
+    <td>{{ room.room_id }}</td>
+    <td>{{ room.hotel_id }}</td>
+    <td>{{ room.room_type }}</td>
+    <td>{{ room.price | currency }}</td>
+  </tr>
+  </tbody>
+</table>

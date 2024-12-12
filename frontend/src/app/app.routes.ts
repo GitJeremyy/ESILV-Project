@@ -1,7 +1,9 @@
 import { Routes } from '@angular/router';
-import { HotelsComponent } from './hotels/hotels.component';
 
 export const routes: Routes = [
-    { path: 'hotels', component: HotelsComponent }, // Définir le chemin pour /hotels
-    { path: '', redirectTo: '/hotels', pathMatch: 'full' }, // Redirect to hotels if no route is matched
+  { path: 'hotels', loadComponent: () => import('./hotels/hotels.component').then(m => m.HotelsComponent) },
+  { path: 'bookings', loadComponent: () => import('./bookings/bookings.component').then(m => m.BookingsComponent) },
+  { path: 'staff', loadComponent: () => import('./staff/staff.component').then(m => m.StaffComponent) },
+  { path: 'guests', loadComponent: () => import('./guests/guests.component').then(m => m.GuestsComponent) },
+  { path: 'rooms', loadComponent: () => import('./rooms/rooms.component').then(m => m.RoomsComponent) }
 ];

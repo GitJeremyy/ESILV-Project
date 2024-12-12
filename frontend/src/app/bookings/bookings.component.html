@@ -1,1 +1,35 @@
-<p>bookings works!</p>
+<h2>Bookings Information</h2>
+<table border="1" style="width: 100%; border-collapse: collapse;">
+  <thead>
+  <tr>
+    <th>Booking ID</th>
+    <th>Guest ID</th>
+    <th>Hotel ID</th>
+    <th>Room ID</th>
+    <th>No. of Adults</th>
+    <th>No. of Children</th>
+    <th>Meal Plan</th>
+    <th>Car Parking Space</th>
+    <th>Lead Time</th>
+    <th>Booking Status</th>
+    <th>Booking Date</th>
+    <th>No. of Nights</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let booking of bookings">
+    <td>{{ booking.booking_id }}</td>
+    <td>{{ booking.guest_id }}</td>
+    <td>{{ booking.hotel_id }}</td>
+    <td>{{ booking.room_id }}</td>
+    <td>{{ booking.no_of_adults }}</td>
+    <td>{{ booking.no_of_children }}</td>
+    <td>{{ booking.meal_plan }}</td>
+    <td>{{ booking.car_parking_space }}</td>
+    <td>{{ booking.lead_time }}</td>
+    <td>{{ booking.booking_status }}</td>
+    <td>{{ booking.booking_date | date }}</td>
+    <td>{{ booking.no_of_nights }}</td>
+  </tr>
+  </tbody>
+</table>

@@ -9,6 +9,47 @@ export interface Hotel {
   total_bookings: number;
 }
 
+export interface Guest {
+  guest_id: number;
+  g_name: string;
+  g_email: string;
+  g_phone: string;
+  repeated_guest: 'Y' | 'N';  // 'Y' or 'N'
+  previous_cancellations: number;
+  previous_bookings_not_canceled: number;
+}
+
+export interface Room {
+  room_id: number;
+  hotel_id: number;
+  room_type: string;
+  price: number;
+}
+
+
+export interface Booking {
+  booking_id: number;
+  guest_id: number;
+  hotel_id: number;
+  room_id: number;
+  no_of_adults: number;
+  no_of_children: number;
+  meal_plan: string;
+  car_parking_space: 'Y' | 'N';
+  lead_time: number;
+  booking_status: string;
+  booking_date: string;
+  no_of_nights: number;
+}
+
+export interface Staff {
+  staff_id: number;
+  hotel_id: number;
+  name: string;
+  position: string;
+  contact_info: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -30,5 +71,15 @@ export class ApiService {
   // Fetches staff data from the backend
   getStaff(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/staff`);  // API endpoint for staff
+  }
+
+  // Fetches guests data from the backend
+  getGuests(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/guests`);  // API endpoint for guests
+  }
+
+  // Fetches rooms data from the backend
+  getRooms(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/rooms`);  // API endpoint for rooms
   }
 }

@@ -1,26 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ApiService, Hotel } from '../api.service';  // Ensure ApiService and Hotel interface are properly defined
+import { ApiService, Hotel } from '../api.service';
 
 @Component({
   selector: 'app-hotels',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './hotels.component.html',  // Reference the HTML template
+  templateUrl: './hotels.component.html',
+  styleUrls: ['./hotels.component.css']
 })
 export class HotelsComponent implements OnInit {
-  hotels: Hotel[] = [];  // Declare an empty array to store hotel data
+  hotels: Hotel[] = [];
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.apiService.getHotels().subscribe({
       next: (data) => {
-        console.log('Data from API:', data);  // Log the response for debugging
-        this.hotels = data;  // Assign the data to the hotels array
+        this.hotels = data;
       },
       error: (error) => {
-        console.error('Error fetching hotels:', error);  // Handle any errors
+        console.error('Error fetching hotels:', error);
       },
     });
   }

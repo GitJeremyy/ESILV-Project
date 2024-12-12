@@ -1,1 +1,21 @@
-<p>staff works!</p>
+<h2>Staff Information</h2>
+<table border="1" style="width: 100%; border-collapse: collapse;">
+  <thead>
+  <tr>
+    <th>Staff ID</th>
+    <th>Name</th>
+    <th>Position</th>
+    <th>Contact Info</th>
+    <th>Hotel ID</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let member of staff">
+    <td>{{ member.staff_id }}</td>
+    <td>{{ member.name }}</td>
+    <td>{{ member.position }}</td>
+    <td>{{ member.contact_info }}</td>
+    <td>{{ member.hotel_id }}</td>
+  </tr>
+  </tbody>
+</table>

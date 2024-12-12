@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ApiService, Staff } from '../api.service';
+import { ApiService, Room } from '../api.service';
 
 @Component({
-  selector: 'app-staff',
+  selector: 'app-rooms',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './staff.component.html',
-  styleUrls: ['./staff.component.css']
+  templateUrl: './rooms.component.html',
+  styleUrls: ['./rooms.component.css']
 })
-export class StaffComponent implements OnInit {
-  staff: Staff[] = [];
+export class RoomsComponent implements OnInit {
+  rooms: Room[] = [];
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.apiService.getStaff().subscribe({
+    this.apiService.getRooms().subscribe({
       next: (data) => {
-        this.staff = data;
+        this.rooms = data;
       },
       error: (error) => console.error('Error fetching staff:', error),
     });
