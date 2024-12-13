@@ -3,6 +3,7 @@
 First of all, execute the first file (1-Create Schema Admin) on Oracle SQL developer to create the admin user of the database. Then, login as admin_user as defined in the script. Finally, execute the two other files (2-Create Tables Automations Users & 3-Load Tables) to create tables, triggers, functions/procedures, other users and load the tables.
 
 Once you cloned the project :
+
 1- Install npm packages (npm install in frontend/backend/root)
 
 2- Install Concurrently package in the root (npm install concurrently --save-dev)
