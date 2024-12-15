@@ -7,8 +7,6 @@ async function initialize() {
             password: 'admin_password',
             connectString: 'localhost:1521/xepdb1'
         });
-
-        console.log('Successful connexion to the database!');
         return connection;
     } catch (err) {
         console.error('Failed connexion to the database:', err);

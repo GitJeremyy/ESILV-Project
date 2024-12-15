@@ -102,4 +102,8 @@ export class ApiService {
     return this.http.put(`${this.baseUrl}/updateCarParkingSpace/${bookingId}`, { car_parking_space: carParkingSpace });
   }
 
+  login(username: string, password: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/login`, { username, password });
+  }
+
 }

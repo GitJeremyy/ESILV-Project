@@ -1,14 +1,71 @@
 const express = require('express');
-const path = require('path');
-const { initialize } = require('./db'); // Import to connect to db
+const oracledb = require('oracledb');
+const jwt = require('jsonwebtoken');
+const SECRET_KEY = 'secret';
+const { initialize } = require('./db');
 const cors = require('cors');
 const app = express();
 const port = 3000;
 
-// Enable CORS for all origins
-app.use(cors());  // This will allow all origins to access API
+app.use(cors());
+app.use(express.json());
 
-app.use(express.json());  // Middleware to process JSON requests
+// Endpoint for login
+app.post('/api/login', async (req, res) => {
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+        return res.status(400).send({ message: 'Username and password are required.' });
+    }
+
+    const connection = await initialize();
+
+    try {
+        console.log('Executing query with username:', username);
+
+        // Query to get the user details
+        const query = `
+            SELECT u.user_id, u.user_password
+            FROM Users u
+            WHERE u.username = :username
+        `;
+        const result = await connection.execute(query, [username], { outFormat: oracledb.OUT_FORMAT_OBJECT });
+
+
+        // If no user is found with the given username
+        if (result.rows.length === 0) {
+            return res.status(401).send({ message: 'Invalid username or password.' });
+        }
+
+        const user = result.rows[0];
+
+        // Check if the password exists in the database (ensure it's not null or empty)
+        if (!user.USER_PASSWORD) {
+            return res.status(500).send({ message: 'Password not found for the user.' });
+        }
+
+        // Directly compare the password from the request to the password in the database
+        if (password.trim() === user.USER_PASSWORD.trim()) {
+            // Generate JWT token if the password is correct
+            const token = jwt.sign({ userId: user.USER_ID, username }, SECRET_KEY, { expiresIn: '1h' });
+
+            // Send response with the token
+            res.json({
+                message: 'Login successful',
+                token: token
+            });
+        } else {
+            console.log('Invalid password');
+            return res.status(401).send({ message: 'Invalid username or password.' });
+        }
+
+    } catch (err) {
+        console.error('Login error:', err); // Detailed error logging
+        res.status(500).send({ message: 'Internal error', error: err.message || err });
+    } finally {
+        await connection.close();
+    }
+});
 
 // Endpoint for hotels
 app.get('/api/hotels', async (req, res) => {
