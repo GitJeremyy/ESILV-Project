@@ -11,6 +11,8 @@ ALTER TABLE Hotel MODIFY hotel_id RESTART WITH 1;
 
 INSERT INTO Hotel (hotel_id, nameH, location, total_bookings) VALUES (1, 'Oasis Hotel', 'France', 0);
 
+INSERT INTO Users (username, user_password) VALUES ('admin', 'password');
+
 INSERT INTO Guest (g_name, g_email, g_phone, repeated_guest, previous_cancellations, previous_bookings_not_canceled) VALUES ('Mason Patel', 'mason.patel@example.fr', '+33 186 9025', 'Y', 4, 4);
 INSERT INTO Guest (g_name, g_email, g_phone, repeated_guest, previous_cancellations, previous_bookings_not_canceled) VALUES ('Liam Müller', 'liam.müller@example.com', '+34 773 2766', 'Y', 3, 10);
 INSERT INTO Guest (g_name, g_email, g_phone, repeated_guest, previous_cancellations, previous_bookings_not_canceled) VALUES ('Noah Novak', 'noah.novak@example.fr', '+52 259 1457', 'Y', 3, 6);
