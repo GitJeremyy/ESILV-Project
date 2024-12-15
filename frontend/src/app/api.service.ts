@@ -14,7 +14,7 @@ export interface Guest {
   g_name: string;
   g_email: string;
   g_phone: string;
-  repeated_guest: 'Y' | 'N';  // 'Y' or 'N'
+  repeated_guest: 'Y' | 'N';
   previous_cancellations: number;
   previous_bookings_not_canceled: number;
 }
@@ -59,32 +59,32 @@ export class ApiService {
 
   // Fetches hotels from the backend
   getHotels(): Observable<Hotel[]> {
-    return this.http.get<Hotel[]>(`${this.baseUrl}/hotels`);  // API endpoint for hotels
+    return this.http.get<Hotel[]>(`${this.baseUrl}/hotels`);
   }
 
   // Fetches bookings data from the backend
   getBookings(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/bookings`);  // API endpoint for bookings
+    return this.http.get<any[]>(`${this.baseUrl}/bookings`);
   }
 
   // Fetches staff data from the backend
   getStaff(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/staff`);  // API endpoint for staff
+    return this.http.get<any[]>(`${this.baseUrl}/staff`);
   }
 
   // Fetches guests data from the backend
   getGuests(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/guests`);  // API endpoint for guests
+    return this.http.get<any[]>(`${this.baseUrl}/guests`);
   }
 
   // Fetches rooms data from the backend
   getRooms(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/rooms`);  // API endpoint for rooms
+    return this.http.get<any[]>(`${this.baseUrl}/rooms`);
   }
 
   // Creates a new booking
   createBooking(reservationData:any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/reservation`, reservationData);  // API endpoint for creating a booking
+    return this.http.post(`${this.baseUrl}/reservation`, reservationData);
   }
 
   // Cancel a booking
@@ -102,6 +102,7 @@ export class ApiService {
     return this.http.put(`${this.baseUrl}/updateCarParkingSpace/${bookingId}`, { car_parking_space: carParkingSpace });
   }
 
+  // Login username and password check
   login(username: string, password: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/login`, { username, password });
   }

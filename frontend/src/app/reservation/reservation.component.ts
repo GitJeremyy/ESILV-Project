@@ -28,9 +28,9 @@ export class ReservationComponent implements OnInit {
       room_type: ['', Validators.required]
     });
 
-    // Initialise la date minimale
+    // instantiate today's date to avoid bookings in the past
     const today = new Date();
-    this.minDate = today.toISOString().split('T')[0]; // Format 'YYYY-MM-DD'
+    this.minDate = today.toISOString().split('T')[0];
   }
 
   ngOnInit(): void {}

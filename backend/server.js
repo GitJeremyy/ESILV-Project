@@ -222,7 +222,6 @@ app.post('/api/reservation', async (req, res) => {
     try {
         const { no_of_adults, no_of_children, meal_plan, car_parking_space, booking_date, no_of_nights, room_type } = req.body;
 
-        // Validation des champs obligatoires
         if (!no_of_adults || !meal_plan || !booking_date || !no_of_nights || !room_type) {
             return res.status(400).json({ error: 'Missing required fields' });
         }
@@ -234,7 +233,7 @@ app.post('/api/reservation', async (req, res) => {
         const formattedBookingDate = new Date(booking_date).toISOString().split('T')[0]; // Format 'YYYY-MM-DD'
         const bookingEndDate = new Date(new Date(booking_date).getTime() + no_of_nights * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
-        // Étape 1: Récupérer un room_id disponible
+        // Get available room to assign
         const availabilityQuery = `
             SELECT room_id 
             FROM Room 
@@ -259,10 +258,10 @@ app.post('/api/reservation', async (req, res) => {
             return res.status(400).json({ error: 'No rooms available for the selected type and dates.' });
         }
 
-        // Sélectionner un room_id aléatoire parmi les chambres disponibles
+        // Select the room_id
         const room_id = availableRooms[Math.floor(Math.random() * availableRooms.length)];
 
-        // Étape 2: Insérer la réservation
+        // Insert the booking
         const insertQuery = `
             INSERT INTO Booking (hotel_id, room_id, no_of_adults, no_of_children, meal_plan, car_parking_space, lead_time, booking_status, booking_date, no_of_nights)
             VALUES (:hotel_id, :room_id, :no_of_adults, :no_of_children, :meal_plan, :car_parking_space, :lead_time, :booking_status, TO_DATE(:booking_date, 'YYYY-MM-DD'), :no_of_nights)
@@ -272,7 +271,7 @@ app.post('/api/reservation', async (req, res) => {
         // Commit the transaction
         await connection.commit();
 
-        // Étape 3: Récupérer la nouvelle réservation pour confirmation
+        // Confirmation
         const selectQuery = `
             SELECT booking_id, hotel_id, room_id, no_of_adults, no_of_children, meal_plan, car_parking_space, lead_time, booking_status, booking_date, no_of_nights
             FROM Booking
@@ -332,8 +331,6 @@ app.put('/api/cancelBooking/:id', async (req, res) => {
         await connection.close();
     }
 });
-
-
 
 app.put('/api/updateMealPlan/:id', async (req, res) => {
     const bookingId = req.params.id;

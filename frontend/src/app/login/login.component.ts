@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { AuthService } from '../auth.service'; // Ajout du service AuthService
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +23,7 @@ export class LoginComponent {
   constructor(
     private apiService: ApiService,
     private router: Router,
-    private authService: AuthService // Injecter AuthService
+    private authService: AuthService
   ) {}
 
   login() {

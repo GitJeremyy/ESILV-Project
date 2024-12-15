@@ -17,17 +17,16 @@ import { NgIf } from '@angular/common';
 export class AppComponent implements OnInit {
   title = 'Hotel Management System';
   isAuthenticated: boolean = false;
-  isLoginPage: boolean = false; // Ajout de cette propriété
+  isLoginPage: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
-    // Mettez à jour l'état d'authentification
+    // update authentification state
     this.authService.isAuthenticated$.subscribe((authState) => {
       this.isAuthenticated = authState;
     });
 
-    // Écoutez les changements de route pour déterminer si on est sur la page de login
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.isLoginPage = event.url === '/login';
