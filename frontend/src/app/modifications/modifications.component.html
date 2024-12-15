@@ -1,0 +1,111 @@
+<div *ngIf="!selectedBooking">
+  <h2>Bookings Information</h2>
+  <table border="1" style="width: 100%; border-collapse: collapse;">
+    <thead>
+    <tr>
+      <th>Booking ID</th>
+      <th>Guest ID</th>
+      <th>Hotel ID</th>
+      <th>Room ID</th>
+      <th>No. of Adults</th>
+      <th>No. of Children</th>
+      <th>Meal Plan</th>
+      <th>Car Parking Space</th>
+      <th>Lead Time</th>
+      <th>Booking Status</th>
+      <th>Booking Date</th>
+      <th>No. of Nights</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let booking of bookings" (click)="selectBooking(booking)">
+      <td>{{ booking.booking_id }}</td>
+      <td>{{ booking.guest_id }}</td>
+      <td>{{ booking.hotel_id }}</td>
+      <td>{{ booking.room_id }}</td>
+      <td>{{ booking.no_of_adults }}</td>
+      <td>{{ booking.no_of_children }}</td>
+      <td>{{ booking.meal_plan }}</td>
+      <td>{{ booking.car_parking_space }}</td>
+      <td>{{ booking.lead_time }}</td>
+      <td>{{ booking.booking_status }}</td>
+      <td>{{ booking.booking_date | date }}</td>
+      <td>{{ booking.no_of_nights }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="selectedBooking">
+  <h2>Modifier la réservation</h2>
+  <table border="1" style="width: 100%; border-collapse: collapse;">
+    <thead>
+    <tr>
+      <th>Booking ID</th>
+      <th>Guest ID</th>
+      <th>Hotel ID</th>
+      <th>Room ID</th>
+      <th>No. of Adults</th>
+      <th>No. of Children</th>
+      <th>Meal Plan</th>
+      <th>Car Parking Space</th>
+      <th>Lead Time</th>
+      <th>Booking Status</th>
+      <th>Booking Date</th>
+      <th>No. of Nights</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>{{ selectedBooking.booking_id }}</td>
+      <td>{{ selectedBooking.guest_id }}</td>
+      <td>{{ selectedBooking.hotel_id }}</td>
+      <td>{{ selectedBooking.room_id }}</td>
+      <td>{{ selectedBooking.no_of_adults }}</td>
+      <td>{{ selectedBooking.no_of_children }}</td>
+      <td>{{ selectedBooking.meal_plan }}</td>
+      <td>{{ selectedBooking.car_parking_space }}</td>
+      <td>{{ selectedBooking.lead_time }}</td>
+      <td>{{ selectedBooking.booking_status }}</td>
+      <td>{{ selectedBooking.booking_date | date }}</td>
+      <td>{{ selectedBooking.no_of_nights }}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <button (click)="updateBookingStatus()">Annuler la réservation</button>
+  <button (click)="updateMealPlan()">Modifier le plan de repas</button>
+  <button (click)="updateCarParkingSpace()">Modifier l'espace de parking</button>
+</div>
+
+<!-- Confirmation dialog for Booking Status -->
+<div *ngIf="confirmCancellation" class="modal">
+  <div class="modal-content">
+    <h3>Êtes-vous sûr de vouloir annuler cette réservation ?</h3>
+    <button (click)="cancelBooking()">Oui</button>
+    <button (click)="closeDialog()">Non</button>
+  </div>
+</div>
+
+<!-- Meal Plan Selection -->
+<div *ngIf="showMealPlanSelect" class="modal">
+  <div class="modal-content">
+    <h3>Sélectionnez un plan de repas :</h3>
+    <select [(ngModel)]="selectedMealPlan">
+      <option value="Meal Plan 1">Meal Plan 1</option>
+      <option value="Meal Plan 2">Meal Plan 2</option>
+      <option value="Not selected">Not selected</option>
+    </select>
+    <button (click)="updateMealPlanConfirmed()">Confirmer</button>
+    <button (click)="closeDialog()">Annuler</button>
+  </div>
+</div>
+
+<!-- Car Parking Space Dialog -->
+<div *ngIf="showParkingDialog" class="modal">
+  <div class="modal-content">
+    <h3>Voulez-vous réserver une place de parking ?</h3>
+    <button (click)="confirmParking(true)">Oui</button>
+    <button (click)="confirmParking(false)">Non</button>
+  </div>
+</div>

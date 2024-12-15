@@ -26,7 +26,6 @@ export interface Room {
   price: number;
 }
 
-
 export interface Booking {
   booking_id: number;
   guest_id: number;
@@ -82,4 +81,25 @@ export class ApiService {
   getRooms(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/rooms`);  // API endpoint for rooms
   }
+
+  // Creates a new booking
+  createBooking(reservationData:any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/reservation`, reservationData);  // API endpoint for creating a booking
+  }
+
+  // Cancel a booking
+  cancelBooking(bookingId: number): Observable<any> {
+    return this.http.put(`${this.baseUrl}/cancelBooking/${bookingId}`, {});
+  }
+
+  // Update meal plan
+  updateMealPlan(bookingId: number, mealPlan: string): Observable<any> {
+    return this.http.put(`${this.baseUrl}/updateMealPlan/${bookingId}`, { meal_plan: mealPlan });
+  }
+
+  // Update car parking space
+  updateCarParkingSpace(bookingId: number, carParkingSpace: string): Observable<any> {
+    return this.http.put(`${this.baseUrl}/updateCarParkingSpace/${bookingId}`, { car_parking_space: carParkingSpace });
+  }
+
 }

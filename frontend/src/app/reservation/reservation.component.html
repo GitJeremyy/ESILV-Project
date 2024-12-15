@@ -1,0 +1,112 @@
+<form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="no_of_adults">Nombre d'adultes :</label>
+    <input
+      id="no_of_adults"
+      type="number"
+      formControlName="no_of_adults"
+      [min]="1"
+      required
+    />
+    <div *ngIf="reservationForm.get('no_of_adults')?.invalid && reservationForm.get('no_of_adults')?.touched">
+      <small *ngIf="reservationForm.get('no_of_adults')?.errors?.['required']">
+        Le nombre d'adultes est requis.
+      </small>
+      <small *ngIf="reservationForm.get('no_of_adults')?.errors?.['min']">
+        Le nombre d'adultes doit être au moins 1.
+      </small>
+    </div>
+  </div>
+
+  <div>
+    <label for="no_of_children">Nombre d'enfants :</label>
+    <input
+      id="no_of_children"
+      type="number"
+      formControlName="no_of_children"
+      [min]="0"
+    />
+    <div *ngIf="reservationForm.get('no_of_children')?.invalid && reservationForm.get('no_of_children')?.touched">
+      <small *ngIf="reservationForm.get('no_of_children')?.errors?.['min']">
+        Le nombre d'enfants ne peut pas être négatif.
+      </small>
+    </div>
+  </div>
+
+  <div>
+    <label for="meal_plan">Plan repas :</label>
+    <select id="meal_plan" formControlName="meal_plan" required>
+      <option value="" disabled selected>Choisissez un plan repas</option>
+      <option value="Meal Plan 1">Meal Plan 1</option>
+      <option value="Meal Plan 2">Meal Plan 2</option>
+      <option value="Not Selected">Not Selected</option>
+    </select>
+    <div *ngIf="reservationForm.get('meal_plan')?.invalid && reservationForm.get('meal_plan')?.touched">
+      <small>Veuillez sélectionner un plan repas.</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="car_parking_space">Place de parking :</label>
+    <select id="car_parking_space" formControlName="car_parking_space" required>
+      <option value="" disabled selected>Place de parking</option>
+      <option value="Y">Oui</option>
+      <option value="N">Non</option>
+    </select>
+    <div *ngIf="reservationForm.get('car_parking_space')?.invalid && reservationForm.get('car_parking_space')?.touched">
+      <small *ngIf="reservationForm.get('car_parking_space')?.errors?.['pattern']">
+        Valeur invalide. Choisissez "Oui" (Y) ou "Non" (N).
+      </small>
+    </div>
+  </div>
+
+  <div>
+    <label for="booking_date">Date de réservation :</label>
+    <input
+      id="booking_date"
+      type="date"
+      formControlName="booking_date"
+      [min]="minDate"
+      required
+    />
+    <div *ngIf="reservationForm.get('booking_date')?.invalid && reservationForm.get('booking_date')?.touched">
+      <small>Veuillez sélectionner une date valide.</small>
+    </div>
+  </div>
+
+
+  <div>
+    <label for="no_of_nights">Nombre de nuits :</label>
+    <input
+      id="no_of_nights"
+      type="number"
+      formControlName="no_of_nights"
+      [min]="1"
+      required
+    />
+    <div *ngIf="reservationForm.get('no_of_nights')?.invalid && reservationForm.get('no_of_nights')?.touched">
+      <small *ngIf="reservationForm.get('no_of_nights')?.errors?.['required']">
+        Le nombre de nuits est requis.
+      </small>
+      <small *ngIf="reservationForm.get('no_of_nights')?.errors?.['min']">
+        Le nombre de nuits doit être au moins 1.
+      </small>
+    </div>
+  </div>
+
+  <div>
+    <label for="room_type">Type de chambre :</label>
+    <select id="room_type" formControlName="room_type" required>
+      <option value="" disabled selected>-- Sélectionner --</option>
+      <option value="Single">Single</option>
+      <option value="Double">Double</option>
+      <option value="Suite">Suite</option>
+      <option value="Family">Family</option>
+      <option value="Luxurious">Luxurious</option>
+      <option value="Penthouse">Penthouse</option>
+    </select>
+    <small *ngIf="reservationForm.get('room_type')?.errors?.['required']">Veuillez sélectionner un type de chambre.</small>
+  </div>
+
+  <button type="submit" [disabled]="reservationForm.invalid">Réserver</button>
+</form>

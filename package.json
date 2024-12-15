@@ -13,5 +13,10 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^9.1.0"
+  },
+  "dependencies": {
+    "@ag-grid-community/all-modules": "^27.3.0",
+    "ag-grid-angular": "^33.0.2",
+    "ag-grid-community": "^33.0.2"
   }
 }
