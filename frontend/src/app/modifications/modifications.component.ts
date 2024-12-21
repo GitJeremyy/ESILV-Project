@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService, Booking } from '../api.service';
-import {DatePipe, NgForOf, NgIf} from '@angular/common';
+import { AgGridModule } from 'ag-grid-angular';
+import { ColDef, GridOptions, ModuleRegistry } from 'ag-grid-community';
+import { ClientSideRowModelModule } from 'ag-grid-community';
+import { ColumnAutoSizeModule } from 'ag-grid-community';
+import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
+ModuleRegistry.registerModules([ClientSideRowModelModule, ColumnAutoSizeModule]);
 
 @Component({
   selector: 'app-modifications',
   templateUrl: './modifications.component.html',
   standalone: true,
-  imports: [DatePipe, FormsModule, NgIf, NgForOf],
+  imports: [AgGridModule, NgIf, FormsModule],
   styleUrls: ['./modifications.component.css']
 })
 export class ModificationsComponent implements OnInit {
@@ -18,9 +24,48 @@ export class ModificationsComponent implements OnInit {
   showParkingDialog: boolean = false;
   selectedMealPlan: string = '';
 
-  constructor(private apiService: ApiService) {}
+  // Variables pour le modal
+  showModal: boolean = false;
+  modalMessage: string = '';
 
-  ngOnInit() {
+  columnDefs: ColDef[] = [
+    { headerName: 'Booking ID', field: 'booking_id' },
+    { headerName: 'Guest ID', field: 'guest_id' },
+    { headerName: 'Hotel ID', field: 'hotel_id' },
+    { headerName: 'Room ID', field: 'room_id' },
+    { headerName: 'No. of Adults', field: 'no_of_adults' },
+    { headerName: 'No. of Children', field: 'no_of_children' },
+    { headerName: 'Meal Plan', field: 'meal_plan' },
+    { headerName: 'Car Parking Space', field: 'car_parking_space' },
+    { headerName: 'Lead Time', field: 'lead_time' },
+    { headerName: 'Booking Status', field: 'booking_status' },
+    { headerName: 'Booking Date', field: 'booking_date', valueFormatter: (params: any) => {
+        if (params.value) {
+          const date = new Date(params.value);
+          return date.toLocaleDateString('en-US') || '';
+        }
+        return '';
+      }},
+    { headerName: 'No. of Nights', field: 'no_of_nights' }
+  ];
+
+  defaultColDef: ColDef = {
+    sortable: true,
+    filter: true,
+    resizable: true,
+  };
+
+  gridOptions: GridOptions;
+
+  constructor(private apiService: ApiService) {
+    this.gridOptions = {
+      onGridReady: (params) => {
+        params.api.sizeColumnsToFit();
+      },
+    };
+  }
+
+  ngOnInit(): void {
     this.getBookings();
   }
 
@@ -44,13 +89,13 @@ export class ModificationsComponent implements OnInit {
   cancelBooking() {
     this.apiService.cancelBooking(this.selectedBooking.booking_id).subscribe({
       next: () => {
-        alert('Réservation annulée');
-        this.getBookings();  // Rafraîchir la liste des réservations
-        this.selectedBooking = null;  // Réinitialiser la réservation sélectionnée
+        this.showModalMessage('Booking was successfully cancelled!');
+        this.getBookings();
+        this.selectedBooking = null;
         this.confirmCancellation = false;
       },
       error: (error) => {
-        console.error('Erreur lors de l\'annulation de la réservation', error);
+        console.error('Error canceling reservation', error);
       }
     });
   }
@@ -67,9 +112,9 @@ export class ModificationsComponent implements OnInit {
 
   updateMealPlanConfirmed() {
     this.apiService.updateMealPlan(this.selectedBooking.booking_id, this.selectedMealPlan).subscribe(() => {
-      alert('Plan de repas mis à jour');
-      this.getBookings();  // Refresh the list of bookings
-      this.selectedBooking = null;  // Reset the selected booking
+      this.showModalMessage('Meal Plan was successfully updated!');
+      this.getBookings();
+      this.selectedBooking = null;
       this.showMealPlanSelect = false;
     });
   }
@@ -81,10 +126,19 @@ export class ModificationsComponent implements OnInit {
   confirmParking(reserve: boolean) {
     const carParkingSpace = reserve ? 'Y' : 'N';
     this.apiService.updateCarParkingSpace(this.selectedBooking.booking_id, carParkingSpace).subscribe(() => {
-      alert('Espace de parking mis à jour');
-      this.getBookings();  // Refresh the list of bookings
-      this.selectedBooking = null;  // Reset the selected booking
+      this.showModalMessage('Parking Space was successfully modified!');
+      this.getBookings();
+      this.selectedBooking = null;
       this.showParkingDialog = false;
     });
+  }
+
+  showModalMessage(message: string) {
+    this.modalMessage = message;
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
   }
 }

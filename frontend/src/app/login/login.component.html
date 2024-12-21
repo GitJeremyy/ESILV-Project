@@ -1,5 +1,5 @@
 <div class="login-container">
-  <h2>Login</h2>
+  <h2>Login Page</h2>
 
   <form (ngSubmit)="login()">
     <div>
@@ -11,11 +11,10 @@
       <input type="password" id="password" [(ngModel)]="password" name="password" required />
     </div>
 
-    <button type="submit">Se connecter</button>
+    <button type="submit">Login</button>
   </form>
 
   <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}
   </div>
 </div>
-

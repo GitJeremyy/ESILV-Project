@@ -6,7 +6,6 @@ import { ColDef, GridOptions, ModuleRegistry } from 'ag-grid-community';
 import { ClientSideRowModelModule } from 'ag-grid-community';
 import { ColumnAutoSizeModule } from 'ag-grid-community';
 
-// Register required modules for the grid
 ModuleRegistry.registerModules([ClientSideRowModelModule, ColumnAutoSizeModule]);
 
 @Component({

@@ -58,8 +58,8 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   // Fetches hotels from the backend
-  getHotels(): Observable<Hotel[]> {
-    return this.http.get<Hotel[]>(`${this.baseUrl}/hotels`);
+  getHotels(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/hotels`);
   }
 
   // Fetches bookings data from the backend

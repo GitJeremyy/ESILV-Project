@@ -11,5 +11,5 @@ export const routes: Routes = [
   { path: 'modifications', loadComponent: () => import('./modifications/modifications.component').then(m => m.ModificationsComponent), canActivate: [AuthGuard] },
   { path: 'graphs', loadComponent: () => import('./graphs/graphs.component').then(m => m.GraphsComponent), canActivate: [AuthGuard] },
   { path: 'login', loadComponent: () => import('./login/login.component').then(m => m.LoginComponent) },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/hotels', pathMatch: 'full' },
 ];

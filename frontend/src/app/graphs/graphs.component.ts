@@ -18,7 +18,7 @@ export class GraphsComponent implements OnInit, AfterViewInit {
       type: 'column'
     },
     title: {
-      text: 'Number of Reservations per Month'
+      text: 'Number of Reservations per Month (2024)'
     },
     xAxis: {
       categories: []

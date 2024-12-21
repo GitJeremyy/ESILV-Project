@@ -1,4 +1,4 @@
-# SEproject
+# ESILV Project
 
 First of all, execute the first file (1-Create Schema Admin) on Oracle SQL developer to create the admin user of the database. Then, login as admin_user as defined in the script. Finally, execute the two other files (2-Create Tables Automations Users & 3-Load Tables) to create tables, triggers, functions/procedures, other users and load the tables.
 

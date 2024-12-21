@@ -1,6 +1,6 @@
 <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
   <div>
-    <label for="no_of_adults">Nombre d'adultes :</label>
+    <label for="no_of_adults">Number of adults:</label>
     <input
       id="no_of_adults"
       type="number"
@@ -10,16 +10,16 @@
     />
     <div *ngIf="reservationForm.get('no_of_adults')?.invalid && reservationForm.get('no_of_adults')?.touched">
       <small *ngIf="reservationForm.get('no_of_adults')?.errors?.['required']">
-        Le nombre d'adultes est requis.
+        The number of adults is required.
       </small>
       <small *ngIf="reservationForm.get('no_of_adults')?.errors?.['min']">
-        Le nombre d'adultes doit être au moins 1.
+        The number of adults must be at least 1.
       </small>
     </div>
   </div>
 
   <div>
-    <label for="no_of_children">Nombre d'enfants :</label>
+    <label for="no_of_children">Number of children:</label>
     <input
       id="no_of_children"
       type="number"
@@ -28,40 +28,40 @@
     />
     <div *ngIf="reservationForm.get('no_of_children')?.invalid && reservationForm.get('no_of_children')?.touched">
       <small *ngIf="reservationForm.get('no_of_children')?.errors?.['min']">
-        Le nombre d'enfants ne peut pas être négatif.
+        The number of children cannot be negative.
       </small>
     </div>
   </div>
 
   <div>
-    <label for="meal_plan">Plan repas :</label>
+    <label for="meal_plan">Meal plan:</label>
     <select id="meal_plan" formControlName="meal_plan" required>
-      <option value="" disabled selected>Choisissez un plan repas</option>
+      <option value="" disabled selected>Select a meal plan</option>
       <option value="Meal Plan 1">Meal Plan 1</option>
       <option value="Meal Plan 2">Meal Plan 2</option>
       <option value="Not Selected">Not Selected</option>
     </select>
     <div *ngIf="reservationForm.get('meal_plan')?.invalid && reservationForm.get('meal_plan')?.touched">
-      <small>Veuillez sélectionner un plan repas.</small>
+      <small>Please select a meal plan.</small>
     </div>
   </div>
 
   <div>
-    <label for="car_parking_space">Place de parking :</label>
+    <label for="car_parking_space">Parking space:</label>
     <select id="car_parking_space" formControlName="car_parking_space" required>
-      <option value="" disabled selected>Place de parking</option>
-      <option value="Y">Oui</option>
-      <option value="N">Non</option>
+      <option value="" disabled selected>Parking space</option>
+      <option value="Y">Yes</option>
+      <option value="N">No</option>
     </select>
     <div *ngIf="reservationForm.get('car_parking_space')?.invalid && reservationForm.get('car_parking_space')?.touched">
       <small *ngIf="reservationForm.get('car_parking_space')?.errors?.['pattern']">
-        Valeur invalide. Choisissez "Oui" (Y) ou "Non" (N).
+        Invalid value. Choose "Yes" (Y) or "No" (N).
       </small>
     </div>
   </div>
 
   <div>
-    <label for="booking_date">Date de réservation :</label>
+    <label for="booking_date">Booking date:</label>
     <input
       id="booking_date"
       type="date"
@@ -70,13 +70,12 @@
       required
     />
     <div *ngIf="reservationForm.get('booking_date')?.invalid && reservationForm.get('booking_date')?.touched">
-      <small>Veuillez sélectionner une date valide.</small>
+      <small>Please select a valid date.</small>
     </div>
   </div>
 
-
   <div>
-    <label for="no_of_nights">Nombre de nuits :</label>
+    <label for="no_of_nights">Number of nights:</label>
     <input
       id="no_of_nights"
       type="number"
@@ -86,18 +85,18 @@
     />
     <div *ngIf="reservationForm.get('no_of_nights')?.invalid && reservationForm.get('no_of_nights')?.touched">
       <small *ngIf="reservationForm.get('no_of_nights')?.errors?.['required']">
-        Le nombre de nuits est requis.
+        The number of nights is required.
       </small>
       <small *ngIf="reservationForm.get('no_of_nights')?.errors?.['min']">
-        Le nombre de nuits doit être au moins 1.
+        The number of nights must be at least 1.
       </small>
     </div>
   </div>
 
   <div>
-    <label for="room_type">Type de chambre :</label>
+    <label for="room_type">Room type:</label>
     <select id="room_type" formControlName="room_type" required>
-      <option value="" disabled selected>-- Sélectionner --</option>
+      <option value="" disabled selected>-- Select --</option>
       <option value="Single">Single</option>
       <option value="Double">Double</option>
       <option value="Suite">Suite</option>
@@ -105,8 +104,15 @@
       <option value="Luxurious">Luxurious</option>
       <option value="Penthouse">Penthouse</option>
     </select>
-    <small *ngIf="reservationForm.get('room_type')?.errors?.['required']">Veuillez sélectionner un type de chambre.</small>
+    <small *ngIf="reservationForm.get('room_type')?.errors?.['required']">Please select a room type.</small>
   </div>
 
-  <button type="submit" [disabled]="reservationForm.invalid">Réserver</button>
+  <button type="submit" [disabled]="reservationForm.invalid">Book</button>
 </form>
+
+<div *ngIf="showModal" class="modal-overlay" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>{{ modalMessage }}</h2>
+    <button class="close-btn" (click)="closeModal()">Close</button>
+  </div>
+</div>

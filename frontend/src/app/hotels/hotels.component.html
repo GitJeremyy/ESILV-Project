@@ -1,19 +1,12 @@
 <h2>Hotels Information</h2>
-<table border="1" style="width: 100%; border-collapse: collapse;">
-  <thead>
-  <tr>
-    <th>Hotel ID</th>
-    <th>Name</th>
-    <th>Location</th>
-    <th>Total Bookings</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let hotel of hotels">
-    <td>{{ hotel.hotel_id }}</td>
-    <td>{{ hotel.nameH }}</td>
-    <td>{{ hotel.location }}</td>
-    <td>{{ hotel.total_bookings }}</td>
-  </tr>
-  </tbody>
-</table>
+<div style="height: 100%; width: 100%">
+  <ag-grid-angular
+    style="width: 100%; height: 100%;"
+    class="ag-theme-alpine"
+    [columnDefs]="columnDefs"
+    [rowData]="hotels"
+    [defaultColDef]="defaultColDef"
+    [gridOptions]="gridOptions"
+    [domLayout]="'autoHeight'">
+  </ag-grid-angular>
+</div>
