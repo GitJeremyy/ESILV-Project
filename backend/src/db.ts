@@ -1,26 +1,26 @@
-import oracledb from 'oracledb';
+import { Pool, PoolConfig } from 'pg';
 
-oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
+const poolConfig: PoolConfig = {
+    user: 'admin_user',
+    host: 'localhost',
+    database: 'hotel_management',
+    password: 'admin_password',
+    port: 5432,
+};
 
-interface DBConfig {
-    user: string;
-    password: string;
-    connectString: string;
-}
+const pool = new Pool(poolConfig);
 
-export async function initialize(): Promise<oracledb.Connection> {
-    const config: DBConfig = {
-        user: 'admin_user',
-        password: 'admin_password',
-        connectString: 'localhost:1521/xepdb1',
-    };
-
+export async function initialize() {
     try {
-        const connection = await oracledb.getConnection(config);
-        //console.log('Successful connection to the database.');
-        return connection;
+        const client = await pool.connect();
+        console.log('Successful connection to the PostgreSQL database.');
+        client.release();
     } catch (err) {
-        //console.error('Failed connection to the database.', err);
+        console.error('Failed connection to the PostgreSQL database.', err);
         process.exit(1);
     }
+}
+
+export async function getConnection() {
+    return pool.connect();
 }
