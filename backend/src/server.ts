@@ -3,14 +3,30 @@ import jwt from 'jsonwebtoken';
 import cors from 'cors';
 import { getConnection } from './db';
 import { PoolClient } from 'pg';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
+import * as fs from 'fs';
+import * as path from 'path';
 
 // Configuration
 const SECRET_KEY = 'secret';
 const app = express();
 const port = 3000;
 
+// Swagger integration
+const swaggerSpec = swaggerJsdoc({
+    definition: JSON.parse(
+        fs.readFileSync(
+            path.join(__dirname, '../openapi.json'),
+            'utf8'
+        )
+    ),
+    apis: ['./src/server.ts'],
+});
+
 app.use(cors());
 app.use(express.json());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 interface User {
     user_id: number;
@@ -422,8 +438,14 @@ app.put('/api/updateCarParkingSpace/:id', async (req: Request, res: Response) =>
     }
 });
 
+// Endpoint to serve the OpenAPI specification
+app.get('/api-docs.json', (req: Request, res: Response) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
+});
 
 // Start server
 app.listen(port, () => {
+    console.log(`Swagger documentation available at http://localhost:${port}/api-docs`);
     console.log(`Server running on http://localhost:${port}`);
 });

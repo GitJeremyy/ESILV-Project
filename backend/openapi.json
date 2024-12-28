@@ -1,0 +1,327 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Hotel Reservation API",
+    "version": "1.0.0",
+    "description": "API for managing hotel reservations, guests, rooms, and bookings"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Development server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "Login": {
+        "type": "object",
+        "required": [
+          "username",
+          "password"
+        ],
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string",
+            "format": "password"
+          }
+        }
+      },
+      "Hotel": {
+        "type": "object",
+        "properties": {
+          "hotel_id": {
+            "type": "integer"
+          },
+          "nameh": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "total_bookings": {
+            "type": "integer"
+          }
+        }
+      },
+      "Reservation": {
+        "type": "object",
+        "required": [
+          "no_of_adults",
+          "meal_plan",
+          "booking_date",
+          "no_of_nights",
+          "room_type"
+        ],
+        "properties": {
+          "no_of_adults": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "no_of_children": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "meal_plan": {
+            "type": "string",
+            "enum": [
+              "Meal Plan 1",
+              "Meal Plan 2",
+              "Not Selected"
+            ]
+          },
+          "car_parking_space": {
+            "type": "string",
+            "enum": [
+              "N",
+              "Y"
+            ]
+          },
+          "booking_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "no_of_nights": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "room_type": {
+            "type": "string",
+            "enum": [
+              "Single",
+              "Double",
+              "Suite",
+              "Family",
+              "Luxurious",
+              "Penthouse"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/login": {
+      "post": {
+        "summary": "Login to the system",
+        "tags": [
+          "Authentication"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/hotels": {
+      "get": {
+        "summary": "Get all hotels",
+        "tags": [
+          "Hotels"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of hotels",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Hotel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reservation": {
+      "post": {
+        "summary": "Create a new reservation",
+        "tags": [
+          "Reservations"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Reservation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Reservation created successfully"
+          }
+        }
+      }
+    },
+    "/api/cancelBooking/{id}": {
+      "put": {
+        "summary": "Cancel a booking",
+        "tags": [
+          "Reservations"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Booking cancelled successfully"
+          }
+        }
+      }
+    },
+    "/api/updateCarParkingSpace/{id}": {
+      "put": {
+        "summary": "Update booking car parking space",
+        "tags": ["Reservations"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["car_parking_space"],
+                "properties": {
+                  "car_parking_space": {
+                    "type": "string",
+                    "enum": ["N", "Y"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Car parking space updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "car_parking_space": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/updateMealPlan/{id}": {
+      "put": {
+        "summary": "Update booking meal plan",
+        "tags": ["Reservations"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["meal_plan"],
+                "properties": {
+                  "meal_plan": {
+                    "type": "string",
+                    "enum": ["Meal Plan 1", "Meal Plan 2", "Not Selected"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Meal plan updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "meal_plan": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
