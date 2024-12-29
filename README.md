@@ -41,15 +41,36 @@ Launching the project :
 ```bash
 cd backend
 npm install
-
-
+cd ..
+```
+```bash
+cd frontend
+npm install
+cd ..
+```
 2- Install Concurrently package in the root ("npm install concurrently --save-dev")
+```bash
+npm install concurrently --save-dev
+```
 
 3- Install swagger in the backend folder (npm install swagger-ui-express swagger-jsdoc @types/swagger-ui-express @types/swagger-jsdoc)
+```bash
+cd backend
+npm install swagger-ui-express swagger-jsdoc @types/swagger-ui-express @types/swagger-jsdoc
+cd ..
+```
 
 4- Install openapi typescript codegen in the frontend folder (npm install openapi-typescript-codegen --save-dev)
+```bash
+cd frontend
+npm install openapi-typescript-codegen --save-dev
+cd ..
+```
 
 5- Type "npm start" in your cmd. It will launch the backend server and the frontend.
+```bash
+npm start
+```
 
 6- To connect, we have test logins : enter "admin_user" as username and "admin_password" as password.
 
