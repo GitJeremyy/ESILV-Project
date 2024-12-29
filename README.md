@@ -47,3 +47,7 @@ Launching the project :
 7- You can explore the website via the frontpage (on http://localhost:4200). 
 
 8- You can explore the website via the swagger interface (on http://localhost:3000/api-docs). 
+
+
+In case something goes wrong here his a link to have a quick view of a "basical demo"
+https://youtu.be/w5Gn4KleUPo
