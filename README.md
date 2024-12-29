@@ -36,8 +36,14 @@ Launching the project :
 
 2- Install Concurrently package in the root ("npm install concurrently --save-dev")
 
-3- Type "npm start" in your cmd. It will launch the backend server and the frontend.
+3- Install swagger in the backend folder (npm install swagger-ui-express swagger-jsdoc @types/swagger-ui-express @types/swagger-jsdoc)
 
-4- To connect, we have test logins : enter "admin_user" as username and "admin_password" as password.
+4- Install openapi typescript codegen in the frontend folder (npm install openapi-typescript-codegen --save-dev)
 
-5- You can explore the website via the frontpage (on http://localhost:4200). 
+5- Type "npm start" in your cmd. It will launch the backend server and the frontend.
+
+6- To connect, we have test logins : enter "admin_user" as username and "admin_password" as password.
+
+7- You can explore the website via the frontpage (on http://localhost:4200). 
+
+8- You can explore the website via the swagger interface (on http://localhost:3000/api-docs). 
