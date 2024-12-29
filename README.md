@@ -35,9 +35,6 @@ Launching the project :
 
 1- Install npm packages ("npm install" in frontend/backend/root)
 
-### 2. Install Dependencies
-
-#### Backend:
 ```bash
 cd backend
 npm install
