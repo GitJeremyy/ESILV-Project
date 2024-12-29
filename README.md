@@ -1,8 +1,9 @@
 # ESILV Project
 
 Start by cloning the project
-
-Database installation :
+```bash
+git clone https://github.com/GitJeremyy/ESILV-Project.git
+```
 
 1- Open pgAdmin
 
@@ -33,6 +34,14 @@ Database installation :
 Launching the project :
 
 1- Install npm packages ("npm install" in frontend/backend/root)
+
+### 2. Install Dependencies
+
+#### Backend:
+```bash
+cd backend
+npm install
+
 
 2- Install Concurrently package in the root ("npm install concurrently --save-dev")
 
